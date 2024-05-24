@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <!--<script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+  <script src="auto-init-vr.js"></script>-->
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@cd01cec35a01e03eb2d6a9272500a53de31d3828/dist/aframe-master.min.js"></script>
+  
+</head>
+
+<body style="background-color:#000">
+  <a-scene loading-screen="dotsColor:red; backgroundColor:black">
+    
+    <a-assets>
+     <video id="video" autoplay loop="true" src="https://cdn.glitch.com/bd25e7ef-8422-401b-9bd1-26fc689e7f44%2FABUDABI_H.264_4KUHD_2.1_3840x1920_22Mbps_DP_EQ.mp4"></video>
+    </a-assets>
+    
+    <a-videosphere id="360video" src="#video" rotation="0 -90 -45"></a-videosphere>
+    
+    <!--<a-sky id="image-360" radius="10" src="#foto_puerta"></a-sky>-->
+    
+    
+    <!--<a-entity camera position="0 0 1" rotation="-15 0 0" look-controls wasd-controls="fly: true">
+        <a-circle radius="0.01"
+                  position="0 0 -1"
+                  material="color:#ff0000; opacity:0.8; shader: flat">
+        </a-circle>
+        <a-ring id="ring"
+                cursor="fuse:true; fuseTimeout:500;"
+                raycaster="objects:.link;"
+                position="0 0 -1"
+                geometry="radiusInner:0.02; radiusOuter:0.025; thetaStart:90; thetaLength:0" 
+                material="color:#ff0000; opacity:0.8; shader: flat"
+                animation__fusing="property:geometry.thetaLength; startEvents:fusing; pauseEvents:mouseleave; easing:linear; dur:500; from:360; to:0;"
+                animation__leave="property:geometry.thetaLength; startEvents:mouseleave; easing:linear; dur:500; from:0; to:0;">
+        </a-ring>
+      </a-entity>-->
+    
+    
+    
+    <!--<a-entity geometry="primitive: box" 
+                material="color: green; opacity: 0.5;"
+                id="backbutton" class="link"
+                position="-0.2 0 -3" scale="0.2 0.2 0.2"
+                ></a-entity>-->
+    
+    
+  </a-scene>
+</body>
+  
+  <!--<script>
+    
+  <!--document.querySelector("#backbutton").addEventListener('click', function() {
+        <!--window.location.href="index.html";-->
+      <!--});-->
+      
+<!--</script>-->
+  
+  <script>
+  var v = document.querySelector('#video');
+  var vstatus=0;
+  v.currentTime = 0.1 // start of video
+  v.pause();
+  window.addEventListener('dblclick', function () {
+    if(!vstatus) v.play();
+    else v.pause();
+    vstatus = !vstatus;
+  });
+</script>
+  
+</html>

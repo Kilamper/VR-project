@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>By-Kilamper</title>
+
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+  <script src="auto-init-vr.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@cd01cec35a01e03eb2d6a9272500a53de31d3828/dist/aframe-master.min.js"></script>
+  
+</head>
+
+<body>
+
+  <a-scene>
+
+    <a-assets>
+      <img id="environment" src="https://c7.alamy.com/compes/ttbdj3/planeta-marte-8k-mapa-hdri-medio-ambiente-panorama-esferico-fuente-de-luz-de-fondo-3d-rendering-equirectangular-ilustracion-ttbdj3.jpg">
+      <img id="image" src="https://l13.alamy.com/360es/R1GEFW/panorama-equirectangular-esferica-de-360-grados-de-la-marina-de-funchal-marina-do-funchal-madeira-R1GEFW.jpg">
+      <img id="video" src="https://l13.alamy.com/360es/rfp0dn/minsk-bielorrusia-agosto-24-2016-360-vista-panoramica-de-angulo-en-la-plaza-central-frente-palacio-de-republica-360-por-180-grados-equirectangula-perfecta-rfp0dn.jpg">
+      <img id="TX_stone" src="https://cdn.glitch.com/8f0f7531-6e5a-407d-b376-19a2ea937a8f%2FTX_stone01.jpg?1537454537895">
+      <img id="TX_sky" src="https://cdn.glitch.com/69b58de3-a56f-4860-b31b-6ac3635b971e%2FTX_sky.jpg?1552592748542" />
+      <img id="TX_grid" src="https://cdn.glitch.com/69b58de3-a56f-4860-b31b-6ac3635b971e%2FTX_bluegrid.png?1552592747983" />
+    </a-assets>
+
+     <a-sky src="#TX_sky" geometry="primitive:sphere;radius:5000;segmentsWidth:64;segmentsHeight:20"
+           material="color:#FFF;shader:flat;src:#TX_sky" 
+           position="0 0 0" rotation="0 -90 0" scale="-1 1 1" visible="true">
+    </a-sky>
+    
+    <a-entity environment="preset: oiris; dressingAmount: 50" position="0 -1 0"></a-entity>
+    
+    <a-entity light="color:#ccccff;intensity:1;type:ambient" 
+              position="0 0 0" rotation="0 0 0" scale="1 1 1" visible="true">
+    </a-entity>
+    <a-entity light="color:white;type:ambient" 
+              position="0 0 0" rotation="0 0 0" scale="1 1 1" visible="true">
+    </a-entity>
+    <a-entity light="color:ffaaff;intensity:1.5" 
+              position="5 5 5" rotation="0 0 0" scale="1 1 1" visible="true">
+    </a-entity>
+    <a-entity light="color:white;intensity:0.5" 
+              position="-5 5 15" rotation="0 0 0" scale="1 1 1" visible="true">
+    </a-entity>
+    
+    <a-entity geometry="primitive:plane;width:10000;height:10000" 
+              material="src:#TX_grid;repeat:10000 10000;transparent:true;metalness:0.6;roughness:0.4;sphericalEnvMap:#TX_sky"
+              position="0 -1 0" rotation="-90 0 0" scale="1 1 1" visible="true"></a-entity>
+    
+    <a-link class="videolink" href="environment.html" title="ENVIRONMENT" image="#environment" position="-2 0.3 -3" scale="0.5 0.5 0.5"></a-link>
+    <a-link class="videolink" href="image.html" title="IMAGE" image="#image" position="0 1.3 -3" scale="0.5 0.5 0.5"></a-link>
+    <a-link class="videolink" href="video.html" title="VIDEO" image="#video" position="2 0.3 -3" scale="0.5 0.5 0.5"></a-link>
+    
+    <a-text value="MADE by Kilamper!" color="#FFF" position="-1.3 2.5 -3" scale="1.5 1.5 1.5"></a-text>
+    
+    <a-entity camera position="0 2 1" rotation="-15 0 0" look-controls wasd-controls="fly: true">
+      <a-circle radius="0.01" position="0 0 -1" material="color:#ff0000; opacity:0.8; shader: flat">
+      </a-circle>
+      <a-ring id="ring" cursor="fuse:true; fuseTimeout:2500;" raycaster="objects:.videolink;" position="0 0 -1" geometry="radiusInner:0.02; radiusOuter:0.025; thetaStart:90; thetaLength:0"
+        material="color:#ff0000; opacity:0.8; shader: flat" animation__fusing="property:geometry.thetaLength; startEvents:fusing; pauseEvents:mouseleave; easing:linear; dur:2500; from:360; to:0;"
+        animation__leave="property:geometry.thetaLength; startEvents:mouseleave; easing:linear; dur:500; from:0; to:0;">
+      </a-ring>
+      
+    </a-entity>
+    
+    <a-box src="#TX_stone" position="-0.2 5 -5" rotation="0 45 45" scale="2 2 2"
+animation="property: rotation; easing: linear; to: 0 0 360; loop: true; dur: 12000">
+    </a-box>
+     
+  </a-scene>
+
+  <script>
+
+  (function () {
+       // switch to stereoscopic mode directly on page load, this needs to be after the a-scene loads.
+       var scene = document.querySelector('a-scene');
+       if (scene.hasLoaded) {
+           //scene.enterVR();
+       } else {
+           scene.addEventListener('loaded', function () {
+               setTimeout(function () {
+                   //scene.enterVR();
+               }, 10);
+           });
+       };
+   })();
+
+</script>
+  
+  <script>
+    
+    AFRAME.registerComponent('teleport-on-click', {
+      schema: {
+        to: {default: '0 0 0'},
+        rot: {default: '0 0 0'}
+      },
+      init: function () {
+        var data = this.data;
+        this.el.addEventListener('click', function () {
+          var camerawrapper = document.querySelector('#camerawrapper');
+          var camera = document.querySelector('#camera');
+          camerawrapper.setAttribute('position', data.to);
+          camera.setAttribute('rotation', data.rot);
+        });
+      }
+    });
+    
+  </script>
+  
+</body>
+
+</html>
