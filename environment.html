@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+   <script src="https://unpkg.com/aframe-environment-component/dist/aframe-environment-component.min.js"></script>
+   <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+  <script src="auto-init-vr.js"></script>
+  
+</head>
+
+<body style="background-color:#000">
+  <a-scene loading-screen="dotsColor:red; backgroundColor:black">
+    
+    <a-assets> 
+    
+      <a-asset-item id="object01" src="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-OVNI.glb"></a-asset-item>
+      <a-asset-item id="object02" src="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-LUNA.glb"></a-asset-item>
+      <a-asset-item id="object03" src="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-CURIOSITY.glb"></a-asset-item>
+      <a-asset-item id="object04" src="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-MARTE.glb"></a-asset-item>
+      <a-asset-item id="object05" src="https://cdn.glitch.com/d068d602-dc93-463f-93a1-4d500d3526fe%2FTransbordador%20espacial.glb"></a-asset-item>
+      
+    </a-assets>
+    
+    <a-sky color="#000"></a-sky>
+
+    <a-entity environment="preset: arches; dressingAmount: 4" position="0 -1 0"></a-entity>
+    
+       <a-entity gltf-model="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-OVNI.glb" position="8 5.01059 -26.93599" scale="18 16 18"></a-entity>
+    <a-entity gltf-model="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-LUNA.glb" position="-15.1828 13.33831 -29.56604" scale="14 14 14"></a-entity>
+    <a-entity gltf-model="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-CURIOSITY.glb" position="-3.26495 -0.02193 -6.74313" scale="3 3 3"></a-entity>
+    <a-entity gltf-model="https://cdn.glitch.com/d5c45575-7ff0-41f8-85cf-bf750d636b01%2F%40SPACE-MARTE.glb" position="20.02783 12.2438 -34.93083" scale="30 30 30"></a-entity>
+    <a-entity gltf-model="https://cdn.glitch.com/d068d602-dc93-463f-93a1-4d500d3526fe%2FTransbordador%20espacial.glb" position="-4.88225 1.28591 -25.3336" scale="12 12 12" rotation="-7.87816968304882 -15.231510025757807 -2.8911450342301337"></a-entity>
+    
+    <a-entity camera position="0 3 1" rotation="0 -45 0" look-controls wasd-controls="fly: true">
+        <a-circle radius="0.01"
+                  position="0 0 -1"
+                  material="color:#ff0000; opacity:0.8; shader: flat">
+        </a-circle>
+        <a-ring id="ring"
+                cursor="fuse:true; fuseTimeout:500;"
+                raycaster="objects:.link;"
+                position="0 0 -1"
+                geometry="radiusInner:0.02; radiusOuter:0.025; thetaStart:90; thetaLength:0" 
+                material="color:#ff0000; opacity:0.8; shader: flat"
+                animation__fusing="property:geometry.thetaLength; startEvents:fusing; pauseEvents:mouseleave; easing:linear; dur:500; from:360; to:0;"
+                animation__leave="property:geometry.thetaLength; startEvents:mouseleave; easing:linear; dur:500; from:0; to:0;">
+        </a-ring>
+      </a-entity>
+    
+        
+    <a-entity geometry="primitive: box" 
+                material="color: green; opacity: 0.5;"
+                id="backbutton" class="link"
+                position="-0.2 0 -3" scale="0.2 0.2 0.2"
+                ></a-entity> 
+    
+   </a-scene>
+  </body>
+  
+    <script>
+    
+    document.querySelector("#backbutton").addEventListener('click', function() {
+        window.location.href="index.html";
+      });
+    
+</script>
+    
+</html>

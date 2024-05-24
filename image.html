@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+  <script src="auto-init-vr.js"></script>
+  
+</head>
+
+<body> 
+  <a-scene>
+    <a-assets>
+      <img id="image" src="https://l13.alamy.com/360es/R1GEFW/panorama-equirectangular-esferica-de-360-grados-de-la-marina-de-funchal-marina-do-funchal-madeira-R1GEFW.jpg">
+
+    </a-assets>
+    
+    
+    <a-sky id="image-360" radius="10" src="#image"></a-sky>
+    
+    
+    <a-entity camera position="0 0 1" rotation="-15 0 0" look-controls wasd-controls="fly: true">
+        <a-circle radius="0.01"
+                  position="0 0 -1"
+                  material="color:#ff0000; opacity:0.8; shader: flat">
+        </a-circle>
+        <a-ring id="ring"
+                cursor="fuse:true; fuseTimeout:500;"
+                raycaster="objects:.link;"
+                position="0 0 -1"
+                geometry="radiusInner:0.02; radiusOuter:0.025; thetaStart:90; thetaLength:0" 
+                material="color:#ff0000; opacity:0.8; shader: flat"
+                animation__fusing="property:geometry.thetaLength; startEvents:fusing; pauseEvents:mouseleave; easing:linear; dur:500; from:360; to:0;"
+                animation__leave="property:geometry.thetaLength; startEvents:mouseleave; easing:linear; dur:500; from:0; to:0;">
+        </a-ring>
+      </a-entity>
+    
+    
+    
+    <a-entity geometry="primitive: box" 
+                material="color: green; opacity: 0.5;"
+                id="backbutton" class="link"
+                position="-0.2 0 -3" scale="0.2 0.2 0.2"
+                ></a-entity>
+    
+    
+  </a-scene>
+</body>
+  
+  <script>
+    
+  document.querySelector("#backbutton").addEventListener('click', function() {
+        window.location.href="index.html";
+      });
+      
+</script>
+  
+</html>
